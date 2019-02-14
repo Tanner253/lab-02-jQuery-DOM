@@ -27,7 +27,9 @@ Img.prototype.render = function () {
 const renderOption = function(){
   Img.allImages.forEach((obj) => {
     let keyword = obj.keyword;
-    console.log('this is the keyword', keyword);
+    if () {
+
+    } else {};
     choices.push(keyword);
   });
 }
