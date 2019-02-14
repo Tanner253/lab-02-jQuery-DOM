@@ -1,5 +1,5 @@
 'use strict';
-
+let choices = [];
 //const function
 function Img(images){
   this.image_url = images.image_url;
@@ -39,3 +39,18 @@ Img.loadImg = () => {
 };
 
 $(() => Img.readJson());
+
+
+///////////////////
+//drop down menu///
+
+Img.prototype.renderOption = function(){
+    Img.forEach((images) => 
+        options.push(Img.this.keyword)
+    })
+};
+
+
+addEventListener('sumbit', function(){
+
+})
