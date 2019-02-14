@@ -24,6 +24,14 @@ Img.prototype.render = function () {
   imageClone.removeClass('clone');
 };
 
+const renderOption = function(){
+  Img.allImages.forEach((obj) => {
+    let keyword = obj.keyword;
+    console.log('this is the keyword', keyword);
+    choices.push(keyword);
+  });
+}
+
 Img.readJson = () => {
   $.get('../data/page-1.json', 'json')
     .then(data => {
@@ -36,6 +44,7 @@ Img.readJson = () => {
 
 Img.loadImg = () => {
   Img.allImages.forEach(images => images.render());
+  renderOption();
 };
 
 $(() => Img.readJson());
@@ -44,11 +53,6 @@ $(() => Img.readJson());
 ///////////////////
 //drop down menu///
 
-Img.prototype.renderOption = function(){
-    Img.forEach((images) => 
-        options.push(Img.this.keyword)
-    })
-};
 
 
 addEventListener('sumbit', function(){
