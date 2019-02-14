@@ -1,42 +1,41 @@
-var allImages = [] //instances of data
+'use strict';
+
 //const function
-function Image(images){
-    this.image_url = images.image_url;
-    this.title = images.title;
-    this.description = images.description;
-    this.keyword = images.keyword;
-    this.horns = images.horns;
+function Img(images){
+  this.image_url = images.image_url;
+  this.title = images.title;
+  this.description = images.description;
+  this.keyword = images.keyword;
+  this.horns = images.horns;
 }
+//instances of data
+Img.allImages = [];
 
-Image.prototype.render =  function () {
-    $('main').append('<div class="clone"></div>');
-    let imageClone = $('div[class="clone"]');
+Img.prototype.render = function () {
+  $('main').append('<div class="clone"></div>');
+  let imageClone = $('div[class="clone"]');
 
-    let imageHtml = $('#photo-template').html()
+  let imageHtml = $('#photo-template').html();
 
-    imageClone.html(imageHtml)
+  imageClone.html(imageHtml);
 
+  imageClone.find('img').attr('src', this.image_url);
+  imageClone.find('p').text(this.description);
+  imageClone.removeClass('clone');
+};
 
-//might not work!
+Img.readJson = () => {
+  $.get('../data/page-1.json', 'json')
+    .then(data => {
+      data.forEach(obj => {
+        Img.allImages.push(new Img(obj));
+      });
+    })
+    .then(Img.loadImg);
+};
 
-    imageClone.find('img').attr(
-        src: 'this.image_url')
+Img.loadImg = () => {
+  Img.allImages.forEach(images => images.render());
+};
 
-
-    imageClone.find('p').text(this.description);
-}
-
-Image.readJson = () => {
-    $.get('page-1.json', 'json')
-        .then(data => {
-            data.forEach(obj => {
-                Image.allImages.push(new Image(obj))
-            })
-        })
-        .then(Image.loadImage)
-}
-Image.loadImage = () => {
-    Image.allImages.forEach(images => images.render)
-}
-
-$(() => Image.readJson());
+$(() => Img.readJson());
