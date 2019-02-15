@@ -9,7 +9,8 @@ function Img(images){
   this.horns = images.horns;
 }
 //instances of data
-Img.allImages = [];
+Img.data1 = [];
+Img.data2 = [];
 
 Img.prototype.render = function () {
   $('main').append('<div class="clone"></div>');
@@ -24,55 +25,65 @@ Img.prototype.render = function () {
   imageClone.removeClass('clone');
 };
 
-const renderOption = function(){
-  Img.allImages.forEach((obj) => {
+const renderOption = function(arrChoice){
+  arrChoice.forEach((obj) => {
     let keyword = obj.keyword;
-      if (choices.indexOf(keyword) == -1) {
-        choices.push(keyword);
-        // console.log('dupe', choices)
-      }
-     
+    if (choices.indexOf(keyword) == -1) {
+      choices.push(keyword);
+    }
   });
   options()
 }
 
-  function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
+function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
 
 Img.readJson = () => {
   $.get('../data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        Img.allImages.push(new Img(obj));
+        Img.data1.push(new Img(obj));
       });
     })
-    .then(Img.loadImg);
+  $.get('../data/page-2.json', 'json')
+    .then(data => {
+      data.forEach(obj => {
+        Img.data2.push(new Img(obj));
+      });
+    })
 };
 
-Img.loadImg = () => {
-  Img.allImages.forEach((images) => {
-    console.log(images)
+Img.loadImg = (arrChoice) => {
+  arrChoice.forEach((images) => {
     images.render();
-    }) 
-     renderOption();
+  })
+  renderOption(arrChoice);
 };
 
 
-
-///////////////////
-//drop down menu///
-////////////////////
-//adds options to drop down menu
-
-
-$('select').change(function(){
+$('select').change(function(arrChoice){
   $('div').hide()
-    Img.allImages.forEach((images) => {
-      let target = event.target.value;
-        if(target === images.keyword){
-        images.render();
+  arrChoice.forEach((images) => {
+    let target = event.target.value;
+    if(target === images.keyword){
+      images.render();
     }
-   
+
   });
+})
+
+
+$('#page1').click(function(){
+  $('select').empty();
+  choices = [];
+  $('div').hide();
+  Img.loadImg(Img.data1);
+})
+
+$('#page2').click(function(){
+  $('select').empty();
+  choices = [];
+  $('div').hide();
+  Img.loadImg(Img.data2);
 })
 
 $(() => Img.readJson());
