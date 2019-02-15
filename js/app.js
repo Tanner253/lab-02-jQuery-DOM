@@ -37,7 +37,7 @@ const renderOption = function(){
 }
 
   function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
-  
+
 Img.readJson = () => {
   $.get('../data/page-1.json', 'json')
     .then(data => {
@@ -49,8 +49,11 @@ Img.readJson = () => {
 };
 
 Img.loadImg = () => {
-  Img.allImages.forEach(images => images.render());
-  renderOption();
+  Img.allImages.forEach((images) => {
+    console.log(images)
+    images.render();
+    }) 
+     renderOption();
 };
 
 
@@ -61,9 +64,15 @@ Img.loadImg = () => {
 //adds options to drop down menu
 
 
-
-addEventListener('sumbit', function(){
-
+$('select').change(function(){
+  $('div').hide()
+    Img.allImages.forEach((images) => {
+      let target = event.target.value;
+        if(target === images.keyword){
+        images.render();
+    }
+   
+  });
 })
 
 $(() => Img.readJson());
