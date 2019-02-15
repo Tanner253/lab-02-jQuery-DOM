@@ -27,13 +27,17 @@ Img.prototype.render = function () {
 const renderOption = function(){
   Img.allImages.forEach((obj) => {
     let keyword = obj.keyword;
-    if () {
-
-    } else {};
-    choices.push(keyword);
+      if (choices.indexOf(keyword) == -1) {
+        choices.push(keyword);
+        // console.log('dupe', choices)
+      }
+     
   });
+  options()
 }
 
+  function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
+  
 Img.readJson = () => {
   $.get('../data/page-1.json', 'json')
     .then(data => {
@@ -49,14 +53,17 @@ Img.loadImg = () => {
   renderOption();
 };
 
-$(() => Img.readJson());
 
 
 ///////////////////
 //drop down menu///
+////////////////////
+//adds options to drop down menu
 
 
 
 addEventListener('sumbit', function(){
 
 })
+
+$(() => Img.readJson());
