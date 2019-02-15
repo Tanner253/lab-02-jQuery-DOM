@@ -31,7 +31,6 @@ const renderOption = function(arrChoice){
     if (choices.indexOf(keyword) == -1) {
       choices.push(keyword);
     }
-
   });
   options()
 }
@@ -61,11 +60,9 @@ Img.loadImg = (arrChoice) => {
 };
 
 
-
-
-$('select').change(function(){
+$('select').change(function(arrChoice){
   $('div').hide()
-  Img.data1.forEach((images) => {
+  arrChoice.forEach((images) => {
     let target = event.target.value;
     if(target === images.keyword){
       images.render();
@@ -75,5 +72,18 @@ $('select').change(function(){
 })
 
 
+$('#page1').click(function(){
+  $('select').empty();
+  choices = [];
+  $('div').hide();
+  Img.loadImg(Img.data1);
+})
+
+$('#page2').click(function(){
+  $('select').empty();
+  choices = [];
+  $('div').hide();
+  Img.loadImg(Img.data2);
+})
 
 $(() => Img.readJson());
