@@ -5,6 +5,8 @@
   <head>
     <title>The Gallery of Horns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
     <header>
@@ -19,11 +21,12 @@
       </select>
     </header>
     <main>
-      <section id="photo-template">
-        <img src="" alt="">
-        <p></p>
-      </section>
-
+      <div id="photos">
+        <section id="photo-template">
+          <img src="" alt="">
+          <p></p>
+        </section>
+      </div>
       <script id="image-template" type="text/x-handlebars-template">
         <div>
           <h2>{{name}}</h2>
