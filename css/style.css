@@ -1,0 +1,27 @@
+
+main{
+    display:flex;
+    flex-wrap:wrap;
+}
+#photos{
+    display:flex;
+    flex:wrap;
+}
+div{
+    
+    
+    width: 300px;
+    
+}
+div p{
+    width:300px;
+    border: 3px purple outset;
+}
+
+ 
+div img{
+    width:300px;
+    height: 300px;
+    
+    
+}
