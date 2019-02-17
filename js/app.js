@@ -40,7 +40,7 @@ Img.readJson = () => {
     })
 }
 
-function loadImg(arrChoice) {
+Img.loadImg = (arrChoice) => {
   arrChoice.forEach((images) => {
     images.render();
   })
@@ -59,37 +59,48 @@ const renderOption = function(arrChoice){
 
 function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
 
-$('select').change(function(arrChoice){
-  $('div').hide()
-  arrChoice.forEach((images) => {
-    let target = event.target.value;
-    if(target === images.keyword){
-      images.render();
-    }
-  });
-})
+// $('select').change(function(arrChoice){
+//   $('div').hide()
+//   arrChoice.forEach((images) => {
+//     let target = event.target.value;
+//     if(target === images.keyword){
+//       images.render();
+//     }
+//   });
+// })
 
 $('#page1').click(function(){
   $('select').empty();
+  $('select').append(`<option>Filter By keyword</option>`);
   choices = [];
   $('div').hide();
-  loadImg(Img.data1);
+  Img.loadImg(Img.data1);
+  $('select').change(function(){
+    $('div').hide()
+    Img.data1.forEach((images) => {
+      let target = event.target.value;
+      if(target === images.keyword){
+        images.render();
+      }
+    });
+  })
 })
 
 $('#page2').click(function(){
   $('select').empty();
+  $('select').append(`<option>Filter By keyword</option>`);
   choices = [];
   $('div').hide();
-  loadImg(Img.data2);
+  Img.loadImg(Img.data2);
+  $('select').change(function(){
+    $('div').hide()
+    Img.data2.forEach((images) => {
+      let target = event.target.value;
+      if(target === images.keyword){
+        images.render();
+      }
+    });
+  })
 })
 
-function pageLoad() {
-  console.log('Page load started')
-  $(() => Img.readJson());
-  console.log('Json read')
-  console.log(Img.data1)
-  console.table(Img.data2)
-  loadImg(Img.data1);
-}
-
-pageLoad()
+$(() => Img.readJson());
