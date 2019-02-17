@@ -25,23 +25,11 @@ Img.prototype.render = function () {
   imageClone.removeClass('clone');
 };
 
-const renderOption = function(arrChoice){
-  arrChoice.forEach((obj) => {
-    let keyword = obj.keyword;
-    if (choices.indexOf(keyword) == -1) {
-      choices.push(keyword);
-    }
-  });
-  options()
-}
-
-function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
-
 Img.readJson = () => {
   $.get('../data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
-        Img.data1.push(new Img(obj));
+        Img.data1.push(new Img(obj))
       });
     })
   $.get('../data/page-2.json', 'json')
@@ -50,15 +38,26 @@ Img.readJson = () => {
         Img.data2.push(new Img(obj));
       });
     })
-};
+}
 
-Img.loadImg = (arrChoice) => {
+function loadImg(arrChoice) {
   arrChoice.forEach((images) => {
     images.render();
   })
   renderOption(arrChoice);
 };
 
+const renderOption = function(arrChoice){
+  arrChoice.forEach((obj) => {
+    let keyword = obj.keyword;
+    if (choices.indexOf(keyword) === -1) {
+      choices.push(keyword);
+    }
+  });
+  options()
+}
+
+function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
 
 $('select').change(function(arrChoice){
   $('div').hide()
@@ -67,23 +66,30 @@ $('select').change(function(arrChoice){
     if(target === images.keyword){
       images.render();
     }
-
   });
 })
-
 
 $('#page1').click(function(){
   $('select').empty();
   choices = [];
   $('div').hide();
-  Img.loadImg(Img.data1);
+  loadImg(Img.data1);
 })
 
 $('#page2').click(function(){
   $('select').empty();
   choices = [];
   $('div').hide();
-  Img.loadImg(Img.data2);
+  loadImg(Img.data2);
 })
 
-$(() => Img.readJson());
+function pageLoad() {
+  console.log('Page load started')
+  $(() => Img.readJson());
+  console.log('Json read')
+  console.log(Img.data1)
+  console.table(Img.data2)
+  loadImg(Img.data1);
+}
+
+pageLoad()
