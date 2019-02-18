@@ -26,6 +26,7 @@ Img.prototype.render = function () {
 };
 
 Img.readJson = () => {
+  console.log('getting images');
   $.get('../data/page-1.json', 'json')
     .then(data => {
       data.forEach(obj => {
@@ -38,10 +39,14 @@ Img.readJson = () => {
         Img.data2.push(new Img(obj));
       });
     })
+  console.log('display imageds on screen',Img.data1);
+  Img.loadImg(Img.data1);
 }
 
 Img.loadImg = (arrChoice) => {
+  console.log('About to render!');
   arrChoice.forEach((images) => {
+    console.log(images);
     images.render();
   })
   renderOption(arrChoice);
@@ -58,16 +63,6 @@ const renderOption = function(arrChoice){
 }
 
 function options () {choices.forEach((str) => {$('select').append(`<option>${str}</option>`)})}
-
-// $('select').change(function(arrChoice){
-//   $('div').hide()
-//   arrChoice.forEach((images) => {
-//     let target = event.target.value;
-//     if(target === images.keyword){
-//       images.render();
-//     }
-//   });
-// })
 
 $('#page1').click(function(){
   $('select').empty();
@@ -103,4 +98,9 @@ $('#page2').click(function(){
   })
 })
 
-$(() => Img.readJson());
+function displayImages() {
+  Img.readJson();
+  // Img.loadImg(Img.data1);
+}
+
+displayImages();
